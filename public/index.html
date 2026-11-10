@@ -52,8 +52,21 @@
     </div>
     <ul id="items" class="items"></ul>
     <p class="total">Total: <b id="total">$0</b></p>
-    <input id="cliente" type="text" placeholder="Tu nombre" maxlength="80">
-    <button class="btn grande" id="comprar"><img src="img/gatito.svg" alt="" width="34"> Confirmar compra</button>
+    <form id="formPago" novalidate autocomplete="on">
+      <fieldset class="pago">
+        <legend>Pagá con tarjeta</legend>
+        <label>Tu nombre
+          <input id="cliente" type="text" maxlength="80" autocomplete="name" placeholder="Nombre y apellido"></label>
+        <label>Número de tarjeta
+          <span class="num"><input id="numero" inputmode="numeric" autocomplete="cc-number" maxlength="23" placeholder="0000 0000 0000 0000"><span class="marca" id="marca"></span></span></label>
+        <div class="fila">
+          <label>Vence<input id="vence" inputmode="numeric" autocomplete="cc-exp" maxlength="5" placeholder="MM/AA"></label>
+          <label>Código<input id="cvv" inputmode="numeric" autocomplete="cc-csc" maxlength="4" placeholder="123" type="password"></label>
+        </div>
+        <p class="demo">Modo demo: no se cobra nada real. Probá con 4242 4242 4242 4242.</p>
+      </fieldset>
+      <button class="btn grande" id="comprar" type="submit"><img src="img/gatito.svg" alt="" width="34"> Pagar y confirmar</button>
+    </form>
     <button class="btn chico vaciar" id="vaciar">Vaciar carrito</button>
     <p id="mensaje" class="mensaje" role="status"></p>
   </aside>

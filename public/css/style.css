@@ -9,23 +9,24 @@
   --texto:#f4f0ff;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* Escala fluida: todo está en rem, así crece en pantallas grandes */
+html{scroll-behavior:smooth;font-size:clamp(17px,.55vw + 12px,24px)}
 body{
   margin:0;background:var(--noche);color:var(--texto);
-  font-family:'VT323',monospace;font-size:1.35rem;line-height:1.3;
+  font-family:'VT323',monospace;font-size:1.5rem;line-height:1.35;
   background-image:linear-gradient(var(--noche2) 1px,transparent 1px),linear-gradient(90deg,var(--noche2) 1px,transparent 1px);
   background-size:32px 32px;
 }
 h1,h2,.logo span,.btn,.insert{font-family:'Press Start 2P',monospace}
 
-.barra{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem 1.2rem;
+.barra{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 2rem;
   background:var(--noche);border-bottom:4px solid var(--kitty);position:sticky;top:0;z-index:5}
 .logo{display:flex;align-items:center;gap:.6rem;color:var(--sol);text-decoration:none;font-size:.8rem}
 
 /* Botones con Pusheen */
 .btn{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;
   background:var(--kitty);color:#2b2842;border:3px solid #2b2842;
-  padding:.7rem 1rem;font-size:.7rem;
+  padding:.8rem 1.2rem;font-size:.8rem;
   box-shadow:4px 4px 0 #2b2842;transition:transform .08s,box-shadow .08s;text-decoration:none}
 .btn:hover{background:var(--sol)}
 .btn:active{transform:translate(4px,4px);box-shadow:0 0 0 #2b2842}
@@ -37,26 +38,26 @@ h1,h2,.logo span,.btn,.insert{font-family:'Press Start 2P',monospace}
 .btn.activo{background:var(--pasto)}
 .btn b{background:#2b2842;color:var(--sol);padding:.15rem .4rem}
 
-.hero{padding:3.5rem 1.2rem 3rem;text-align:center;
+.hero{padding:5rem 1.5rem 4.5rem;text-align:center;
   background:linear-gradient(var(--noche) 70%,var(--tierra) 70%,var(--tierra) 76%,var(--pasto) 76%,var(--pasto) 100%);
   border-bottom:6px solid #2b2842}
 .insert{color:var(--sol);font-size:.8rem;animation:parpadeo 1s steps(2) infinite}
-.hero h1{font-size:clamp(1.1rem,4vw,2rem);line-height:1.6;margin:1rem 0}
+.hero h1{font-size:clamp(1.4rem,4vw,2.6rem);line-height:1.6;margin:1rem 0}
 .sub{font-size:1.6rem;margin:0 0 1.8rem}
 @keyframes parpadeo{50%{opacity:0}}
 
-main{max-width:1100px;margin:0 auto;padding:2rem 1.2rem}
+main{max-width:1400px;margin:0 auto;padding:2.5rem 1.5rem}
 .filtros{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.5rem}
 .aviso{background:var(--sol);color:#2b2842;padding:.4rem .8rem;display:inline-block}
 
-.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.4rem}
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.8rem}
 .tarjeta{background:var(--noche2);border:4px solid var(--gris);padding:1rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:6px 6px 0 #14102e}
 .tarjeta[data-cat="pusheen"]{border-color:var(--gris)}
 .tarjeta[data-cat="kitty"]{border-color:var(--kitty)}
 .tarjeta[data-cat="pvz"]{border-color:var(--pasto)}
 .tarjeta[data-cat="frazadas"]{border-color:var(--sol)}
-.foto{font-size:4.2rem;text-align:center;background:var(--noche);padding:.6rem 0;image-rendering:pixelated}
-.tarjeta h3{font-family:'Press Start 2P',monospace;font-size:.7rem;line-height:1.5;margin:.3rem 0 0}
+.foto{font-size:5rem;text-align:center;background:var(--noche);padding:.6rem 0;image-rendering:pixelated}
+.tarjeta h3{font-family:'Press Start 2P',monospace;font-size:.8rem;line-height:1.5;margin:.3rem 0 0}
 .tarjeta p{margin:0;flex:1}
 .precio{color:var(--sol);font-size:1.7rem}
 .stock{font-size:1.1rem;opacity:.8}
@@ -64,7 +65,7 @@ main{max-width:1100px;margin:0 auto;padding:2rem 1.2rem}
 .pie{text-align:center;padding:2rem 1rem;border-top:4px solid var(--kitty);font-size:1.1rem}
 
 /* Carrito */
-.carrito{position:fixed;top:0;right:0;height:100%;width:min(380px,100%);background:var(--noche);
+.carrito{position:fixed;top:0;right:0;height:100%;width:min(500px,100%);background:var(--noche);
   border-left:6px solid var(--kitty);padding:1rem;overflow:auto;z-index:20;
   transform:translateX(105%);transition:transform .25s steps(6)}
 .carrito.abierto{transform:none}
@@ -84,3 +85,19 @@ main{max-width:1100px;margin:0 auto;padding:2rem 1.2rem}
 @media (prefers-reduced-motion:reduce){
   .insert{animation:none}.carrito{transition:none}.btn img{transition:none}
 }
+
+/* Formulario de pago */
+.pago{border:3px solid var(--gris);padding:.9rem;margin:0 0 1rem;background:var(--noche2)}
+.pago legend{font-family:'Press Start 2P',monospace;font-size:.7rem;color:var(--sol);padding:0 .4rem}
+.pago label{display:block;margin-top:.6rem}
+.pago input{width:100%;padding:.55rem;font:inherit;background:var(--noche);color:var(--texto);border:3px solid var(--gris)}
+.pago input.mal{border-color:#ff6b6b}
+.fila{display:flex;gap:.8rem}.fila>label{flex:1}
+.num{position:relative}.marca{position:absolute;right:.6rem;bottom:.55rem;color:var(--sol);font-size:1.1rem}
+.demo{font-size:1rem;opacity:.75;margin:.6rem 0 0}
+#comprar:disabled{opacity:.6;cursor:wait}
+
+/* Fotos de productos */
+.foto img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.foto:has(img){padding:0}
+.emo img{display:block;width:3.4rem;height:3.4rem;object-fit:cover;border:2px solid var(--gris)}

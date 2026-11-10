@@ -17,12 +17,12 @@ const config = {
 
 // Productos de respaldo: la tienda funciona aunque Docker esté apagado
 const respaldo = [
-  { id: 1, nombre: 'Pusheen clásica', categoria: 'pusheen', precio: 18500, emoji: '🐱', descripcion: 'Gatita gris de rayas, 30 cm.', stock: 12 },
-  { id: 4, nombre: 'Hello Kitty lazo rojo', categoria: 'kitty', precio: 19800, emoji: '🎀', descripcion: 'La clásica, con su moño rojo.', stock: 10 },
-  { id: 6, nombre: 'Girasol', categoria: 'pvz', precio: 15500, emoji: '🌻', descripcion: 'Produce soles de felpa.', stock: 9 },
-  { id: 9, nombre: 'Perro salchicha', categoria: 'perros', precio: 14500, emoji: '🌭', descripcion: 'Largo, larguísimo.', stock: 11 },
-  { id: 11, nombre: 'Gato naranja', categoria: 'gatos', precio: 14000, emoji: '🐈', descripcion: 'Gordito y dormilón.', stock: 10 },
-  { id: 13, nombre: 'Frazada Pusheen', categoria: 'frazadas', precio: 32000, emoji: '🛏️', descripcion: 'Frazada polar con Pusheen.', stock: 6 },
+  { id: 1, nombre: 'Pusheen clásica', categoria: 'pusheen', precio: 18500, emoji: '🐱', descripcion: 'Gatita gris de rayas, súper blandita. La de siempre.', stock: 12, imagen: 'img/productos/pusheen-clasica.jpg' },
+  { id: 7, nombre: 'Hello Kitty overol', categoria: 'kitty', precio: 19000, emoji: '🎀', descripcion: 'La clásica con moño rojo y overol azul.', stock: 10, imagen: 'img/productos/kitty-overol.jpg' },
+  { id: 14, nombre: 'Girasol', categoria: 'pvz', precio: 15500, emoji: '🌻', descripcion: 'Produce soles de felpa. Cuidado con los zombis.', stock: 9, imagen: 'img/productos/pvz-girasol.jpg' },
+  { id: 19, nombre: 'Perro salchicha', categoria: 'perros', precio: 14500, emoji: '🌭', descripcion: 'Disfrazado de pancho: largo, larguísimo, ideal para abrazar.', stock: 11, imagen: 'img/productos/perro-salchicha.jpg' },
+  { id: 25, nombre: 'Gato negro', categoria: 'gatos', precio: 14000, emoji: '🐈‍⬛', descripcion: 'Ojos grandes y dorados. Trae buena suerte.', stock: 10, imagen: 'img/productos/gato-negro.jpg' },
+  { id: 29, nombre: 'Frazada Pusheen unicornio', categoria: 'frazadas', precio: 33500, emoji: '🌈', descripcion: 'Frazada polar lila de 1,25 x 1,5 m con Pusheen unicornio.', stock: 5, imagen: 'img/productos/frazada-pusheen-unicornio.jpg' },
 ];
 
 let pool = null;
@@ -31,6 +31,12 @@ let pool = null;
     pool = mysql.createPool({ ...config, waitForConnections: true, connectionLimit: 5 });
     await pool.query('SELECT 1');
     console.log('✔ MySQL conectado');
+    // Migración: agrega las columnas de pago si la base ya existía sin ellas
+    for (const [tabla, col, def] of [['pedidos', 'pago_marca', 'VARCHAR(12) NULL'], ['pedidos', 'pago_ultimos4', 'CHAR(4) NULL'], ['productos', 'imagen', 'VARCHAR(120) NULL']]) {
+      const [c] = await pool.query(
+        'SELECT 1 FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?', [tabla, col]);
+      if (!c.length) await pool.query('ALTER TABLE ' + tabla + ' ADD COLUMN ' + col + ' ' + def);
+    }
   } catch (e) {
     pool = null;
     console.log('⚠ Sin MySQL (' + e.code + '). Usando productos de respaldo.');
@@ -55,13 +61,33 @@ app.get('/api/productos', async (req, res) => {
   }
 });
 
+// Validación de tarjeta (simulada: no hay pasarela real). Nunca se guarda el número completo ni el CVV.
+const luhn = n => { let s = 0, d = false;
+  for (let i = n.length - 1; i >= 0; i--) { let x = +n[i]; if (d) { x *= 2; if (x > 9) x -= 9; } s += x; d = !d; }
+  return s % 10 === 0; };
+const marcaDe = n => /^4/.test(n) ? 'VISA' : /^(5[1-5]|2[2-7])/.test(n) ? 'MASTERCARD' : /^3[47]/.test(n) ? 'AMEX' : 'TARJETA';
+
+function validarTarjeta(t) {
+  if (!t) return { error: 'Faltan los datos de la tarjeta' };
+  const num = String(t.numero || '').replace(/\D/g, '');
+  if (num.length < 13 || num.length > 19 || !luhn(num)) return { error: 'Número de tarjeta inválido' };
+  const m = /^(\d{2})\/(\d{2})$/.exec(String(t.vence || ''));
+  if (!m || +m[1] < 1 || +m[1] > 12) return { error: 'Vencimiento inválido (MM/AA)' };
+  if (new Date(2000 + +m[2], +m[1], 1) <= new Date()) return { error: 'La tarjeta está vencida' };
+  if (!/^\d{3,4}$/.test(String(t.cvv || ''))) return { error: 'Código de seguridad inválido' };
+  if (num.endsWith('0002')) return { error: 'Pago rechazado por el banco (tarjeta de prueba 0002)' };
+  return { marca: marcaDe(num), ultimos4: num.slice(-4) };
+}
+
 app.post('/api/pedidos', async (req, res) => {
   const { cliente, items } = req.body || {};
   if (!cliente || !Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: 'Falta el nombre o el carrito está vacío' });
   }
+  const pago = validarTarjeta(req.body.tarjeta);
+  if (pago.error) return res.status(400).json({ error: pago.error });
   if (!pool) {
-    return res.json({ ok: true, pedido: Math.floor(Math.random() * 9000) + 1000, guardado: false });
+    return res.json({ ok: true, pedido: Math.floor(Math.random() * 9000) + 1000, guardado: false, ...pago });
   }
   const conn = await pool.getConnection();
   try {
@@ -77,12 +103,12 @@ app.post('/api/pedidos', async (req, res) => {
       lineas.push([p.id, cant, p.precio]);
       await conn.query('UPDATE productos SET stock = stock - ? WHERE id = ?', [cant, p.id]);
     }
-    const [r] = await conn.query('INSERT INTO pedidos (cliente, total) VALUES (?, ?)', [String(cliente).slice(0, 80), total]);
+    const [r] = await conn.query('INSERT INTO pedidos (cliente, total, pago_marca, pago_ultimos4) VALUES (?, ?, ?, ?)', [String(cliente).slice(0, 80), total, pago.marca, pago.ultimos4]);
     for (const [pid, cant, pu] of lineas) {
       await conn.query('INSERT INTO pedido_items (pedido_id, producto_id, cantidad, precio_unit) VALUES (?,?,?,?)', [r.insertId, pid, cant, pu]);
     }
     await conn.commit();
-    res.json({ ok: true, pedido: r.insertId, total, guardado: true });
+    res.json({ ok: true, pedido: r.insertId, total, guardado: true, ...pago });
   } catch (e) {
     await conn.rollback();
     res.status(400).json({ error: e.message });
