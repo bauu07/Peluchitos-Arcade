@@ -1,0 +1,342 @@
+[
+ {
+  "id": 1,
+  "nombre": "Pusheen clásica",
+  "categoria": "pusheen",
+  "precio": 18500,
+  "emoji": "🐱",
+  "descripcion": "Gatita gris de rayas, súper blandita. La de siempre.",
+  "stock": 12,
+  "imagen": "img/productos/pusheen-clasica.jpg"
+ },
+ {
+  "id": 2,
+  "nombre": "Pusheen con galleta",
+  "categoria": "pusheen",
+  "precio": 19500,
+  "emoji": "🍪",
+  "descripcion": "Abraza su galleta con chips de chocolate.",
+  "stock": 10,
+  "imagen": "img/productos/pusheen-galleta.jpg"
+ },
+ {
+  "id": 3,
+  "nombre": "Pusheen panqueque",
+  "categoria": "pusheen",
+  "precio": 22000,
+  "emoji": "🥞",
+  "descripcion": "Torre de panqueques con jarabe. Imposible no abrazarla.",
+  "stock": 7,
+  "imagen": "img/productos/pusheen-panqueque.jpg"
+ },
+ {
+  "id": 4,
+  "nombre": "Pusheen Miku",
+  "categoria": "pusheen",
+  "precio": 25500,
+  "emoji": "🎤",
+  "descripcion": "Edición especial con peluca turquesa y micrófono.",
+  "stock": 3,
+  "imagen": "img/productos/pusheen-miku.jpg"
+ },
+ {
+  "id": 5,
+  "nombre": "Pusheen rollo de frutilla",
+  "categoria": "pusheen",
+  "precio": 21000,
+  "emoji": "🍓",
+  "descripcion": "Rosa, con frutilla arriba y cola rayada.",
+  "stock": 8,
+  "imagen": "img/productos/pusheen-rollo-frutilla.jpg"
+ },
+ {
+  "id": 6,
+  "nombre": "Pusheen unicornio",
+  "categoria": "pusheen",
+  "precio": 23500,
+  "emoji": "🦄",
+  "descripcion": "Con cuerno plateado, melena y cola arcoíris.",
+  "stock": 6,
+  "imagen": "img/productos/pusheen-unicornio.jpg"
+ },
+ {
+  "id": 7,
+  "nombre": "Hello Kitty overol",
+  "categoria": "kitty",
+  "precio": 19000,
+  "emoji": "🎀",
+  "descripcion": "La clásica con moño rojo y overol azul.",
+  "stock": 10,
+  "imagen": "img/productos/kitty-overol.jpg"
+ },
+ {
+  "id": 8,
+  "nombre": "Hello Kitty osito",
+  "categoria": "kitty",
+  "precio": 24000,
+  "emoji": "🧸",
+  "descripcion": "Disfrazada de osito blanco con moñito rojo.",
+  "stock": 6,
+  "imagen": "img/productos/kitty-osito.jpg"
+ },
+ {
+  "id": 9,
+  "nombre": "Hello Kitty frutilla",
+  "categoria": "kitty",
+  "precio": 26000,
+  "emoji": "🍓",
+  "descripcion": "Grande, con moño rosa y una frutilla en brazos.",
+  "stock": 5,
+  "imagen": "img/productos/kitty-frutilla.jpg"
+ },
+ {
+  "id": 10,
+  "nombre": "Hello Kitty almohadón",
+  "categoria": "kitty",
+  "precio": 17500,
+  "emoji": "🛏️",
+  "descripcion": "Cara de Kitty en forma de almohadón para la cama.",
+  "stock": 9,
+  "imagen": "img/productos/kitty-almohadon.jpg"
+ },
+ {
+  "id": 11,
+  "nombre": "Hello Kitty musculosa",
+  "categoria": "kitty",
+  "precio": 20000,
+  "emoji": "💪",
+  "descripcion": "La más fuerte del gimnasio. Abraza fuerte.",
+  "stock": 3,
+  "imagen": "img/productos/kitty-musculosa.jpg"
+ },
+ {
+  "id": 12,
+  "nombre": "Hello Kitty mini frutilla",
+  "categoria": "kitty",
+  "precio": 9000,
+  "emoji": "🍓",
+  "descripcion": "Tamaño mini, vestida de frutilla.",
+  "stock": 25,
+  "imagen": "img/productos/kitty-mini-frutilla.jpg"
+ },
+ {
+  "id": 13,
+  "nombre": "Pochacco con frutilla",
+  "categoria": "kitty",
+  "precio": 21500,
+  "emoji": "🐶",
+  "descripcion": "El perrito de Sanrio abrazando una frutilla gigante.",
+  "stock": 8,
+  "imagen": "img/productos/pochacco-frutilla.jpg"
+ },
+ {
+  "id": 14,
+  "nombre": "Girasol",
+  "categoria": "pvz",
+  "precio": 15500,
+  "emoji": "🌻",
+  "descripcion": "Produce soles de felpa. Cuidado con los zombis.",
+  "stock": 9,
+  "imagen": "img/productos/pvz-girasol.jpg"
+ },
+ {
+  "id": 15,
+  "nombre": "Lanzaguisantes doble",
+  "categoria": "pvz",
+  "precio": 16500,
+  "emoji": "🌱",
+  "descripcion": "Dispara guisantes (de mentira) por partida doble.",
+  "stock": 9,
+  "imagen": "img/productos/pvz-lanzaguisantes-doble.jpg"
+ },
+ {
+  "id": 16,
+  "nombre": "Nuez",
+  "categoria": "pvz",
+  "precio": 14500,
+  "emoji": "🥔",
+  "descripcion": "Aguanta todo lo que le tiren. Ideal para defender el sillón.",
+  "stock": 8,
+  "imagen": "img/productos/pvz-nuez.jpg"
+ },
+ {
+  "id": 17,
+  "nombre": "Calabaza gruñona",
+  "categoria": "pvz",
+  "precio": 15500,
+  "emoji": "🥒",
+  "descripcion": "Con cara de pocos amigos, pero blandita.",
+  "stock": 6,
+  "imagen": "img/productos/pvz-calabaza.jpg"
+ },
+ {
+  "id": 18,
+  "nombre": "Zombi",
+  "categoria": "pvz",
+  "precio": 17500,
+  "emoji": "🧟",
+  "descripcion": "Peluche zombi con saco marrón. Solo quiere cerebros... y mimos.",
+  "stock": 7,
+  "imagen": "img/productos/pvz-zombi.jpg"
+ },
+ {
+  "id": 19,
+  "nombre": "Perro salchicha",
+  "categoria": "perros",
+  "precio": 14500,
+  "emoji": "🌭",
+  "descripcion": "Disfrazado de pancho: largo, larguísimo, ideal para abrazar.",
+  "stock": 11,
+  "imagen": "img/productos/perro-salchicha.jpg"
+ },
+ {
+  "id": 20,
+  "nombre": "Labrador dorado",
+  "categoria": "perros",
+  "precio": 22000,
+  "emoji": "🐶",
+  "descripcion": "Tamaño grande, mirada tierna y pelo súper suave.",
+  "stock": 5,
+  "imagen": "img/productos/perro-labrador.jpg"
+ },
+ {
+  "id": 21,
+  "nombre": "Husky",
+  "categoria": "perros",
+  "precio": 21000,
+  "emoji": "🐺",
+  "descripcion": "Pelaje gris y blanco, ojos celestes. Se sienta solito.",
+  "stock": 6,
+  "imagen": "img/productos/perro-husky.jpg"
+ },
+ {
+  "id": 22,
+  "nombre": "Perrito marrón",
+  "categoria": "perros",
+  "precio": 12500,
+  "emoji": "🐕",
+  "descripcion": "Redondito, mullido y con cachetes rosados.",
+  "stock": 12,
+  "imagen": "img/productos/perro-marron.jpg"
+ },
+ {
+  "id": 23,
+  "nombre": "Snoopy",
+  "categoria": "perros",
+  "precio": 18500,
+  "emoji": "🐕",
+  "descripcion": "El beagle más famoso, blanco con orejas negras.",
+  "stock": 8,
+  "imagen": "img/productos/perro-snoopy.jpg"
+ },
+ {
+  "id": 24,
+  "nombre": "Gato blanco manchado",
+  "categoria": "gatos",
+  "precio": 14000,
+  "emoji": "🐈",
+  "descripcion": "Gordito y dormilón, de los que ocupan todo el sillón.",
+  "stock": 10,
+  "imagen": "img/productos/gato-blanco.jpg"
+ },
+ {
+  "id": 25,
+  "nombre": "Gato negro",
+  "categoria": "gatos",
+  "precio": 14000,
+  "emoji": "🐈‍⬛",
+  "descripcion": "Ojos grandes y dorados. Trae buena suerte.",
+  "stock": 10,
+  "imagen": "img/productos/gato-negro.jpg"
+ },
+ {
+  "id": 26,
+  "nombre": "Gato calicó pixelado",
+  "categoria": "gatos",
+  "precio": 16000,
+  "emoji": "🐱",
+  "descripcion": "Gato calicó en versión pixelada, para fans del juego.",
+  "stock": 8,
+  "imagen": "img/productos/gato-minecraft.jpg"
+ },
+ {
+  "id": 27,
+  "nombre": "Gato tiburón gris",
+  "categoria": "gatos",
+  "precio": 12500,
+  "emoji": "🦈",
+  "descripcion": "Gatito naranja disfrazado de tiburón. Muerde de mentira.",
+  "stock": 14,
+  "imagen": "img/productos/gato-tiburon-gris.jpg"
+ },
+ {
+  "id": 28,
+  "nombre": "Gato tiburón azul",
+  "categoria": "gatos",
+  "precio": 13500,
+  "emoji": "🦈",
+  "descripcion": "Versión azul con ojos verdes y patitas rosas.",
+  "stock": 12,
+  "imagen": "img/productos/gato-tiburon-azul.jpg"
+ },
+ {
+  "id": 29,
+  "nombre": "Frazada Pusheen unicornio",
+  "categoria": "frazadas",
+  "precio": 33500,
+  "emoji": "🌈",
+  "descripcion": "Frazada polar lila de 1,25 x 1,5 m con Pusheen unicornio.",
+  "stock": 5,
+  "imagen": "img/productos/frazada-pusheen-unicornio.jpg"
+ },
+ {
+  "id": 30,
+  "nombre": "Frazada Pusheen chocolate caliente",
+  "categoria": "frazadas",
+  "precio": 32000,
+  "emoji": "☕",
+  "descripcion": "Frazada polar rosa con Pusheen, copos de nieve y chocolate caliente.",
+  "stock": 6,
+  "imagen": "img/productos/frazada-pusheen-chocolate.jpg"
+ },
+ {
+  "id": 31,
+  "nombre": "Cubrecama Pusheen fin de semana",
+  "categoria": "frazadas",
+  "precio": 38000,
+  "emoji": "🎮",
+  "descripcion": "Ropa de cama con Pusheen durmiendo, donut y joystick.",
+  "stock": 4,
+  "imagen": "img/productos/cubrecama-pusheen.jpg"
+ },
+ {
+  "id": 32,
+  "nombre": "Frazada Snoopy",
+  "categoria": "frazadas",
+  "precio": 32500,
+  "emoji": "🧸",
+  "descripcion": "Frazada polar rosa con Snoopy por todas partes.",
+  "stock": 6,
+  "imagen": "img/productos/frazada-snoopy.jpg"
+ },
+ {
+  "id": 33,
+  "nombre": "Frazada Spider-Man",
+  "categoria": "frazadas",
+  "precio": 31000,
+  "emoji": "🕷️",
+  "descripcion": "Frazada roja con telaraña y los ojos del Hombre Araña.",
+  "stock": 7,
+  "imagen": "img/productos/frazada-spiderman.jpg"
+ },
+ {
+  "id": 34,
+  "nombre": "Frazada de estrellas",
+  "categoria": "frazadas",
+  "precio": 28000,
+  "emoji": "⭐",
+  "descripcion": "Frazada celeste suavecita con estrellas blancas.",
+  "stock": 8,
+  "imagen": "img/productos/frazada-estrellas.jpg"
+ }
+]

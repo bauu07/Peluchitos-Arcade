@@ -22,6 +22,8 @@ Es un proyecto escolar: el pago con tarjeta es **simulado** (no se cobra dinero 
 12. [Problemas comunes](#problemas-comunes)
 13. [Límites del proyecto](#límites-del-proyecto)
 
+**Demo online:** https://bauu07.github.io/Peluchitos-Arcade/ (modo demo, ver [Demo en GitHub Pages](#demo-en-github-pages))
+
 ---
 
 ## Qué es y qué se puede hacer
@@ -86,10 +88,12 @@ peluchitos-arcade/
 ├── public/                 Todo lo que ve el navegador
 │   ├── index.html          La estructura de la página
 │   ├── css/style.css       Colores, tamaños y estilo 8 bits
+│   ├── data/productos.json  Catálogo para la demo online
 │   ├── js/tienda.js        Catálogo, filtros, carrito y formulario de pago
 │   └── img/
 │       ├── gatito.svg      El gatito de los botones y el ícono de la pestaña
 │       └── productos/      Las fotos de los 34 peluches
+├── .github/workflows/      Publica la demo en GitHub Pages
 ├── db/
 │   └── init.sql            Crea las tablas y carga los 34 productos
 ├── server.js               El servidor: API, validación de tarjeta y pedidos
@@ -309,6 +313,20 @@ Hay que tocar tres lugares: la lista `ENUM` de `db/init.sql`, un botón nuevo en
 | "No se pudo cargar el catálogo" | El servidor no está corriendo. Corré `npm start` |
 | La página se ve sin estilo | Entrá por `http://localhost:3000`, no abriendo `index.html` con doble clic |
 | "Sin stock suficiente" | Se agotó ese peluche. Para reponer: `docker compose down -v && docker compose up -d` |
+
+---
+
+## Demo en GitHub Pages
+
+GitHub Pages solo muestra archivos (HTML, CSS, JS e imágenes) y **no puede correr Node ni MySQL**. Por eso la versión online funciona en **modo demo**:
+
+- Los productos se leen de `public/data/productos.json`, en lugar de la base de datos.
+- Los pedidos se simulan en el navegador: no se guardan en ningún lado, pero el stock baja en tu navegador para que se note la compra.
+- Arriba del catálogo aparece un cartel que avisa que es la demo.
+
+La tienda completa (con MySQL y pedidos guardados) se corre en tu compu con los pasos de la instalación. El archivo `.github/workflows/pages.yml` publica la carpeta `public/` cada vez que subís cambios. Para activarlo: en GitHub, **Settings → Pages → Source: GitHub Actions**.
+
+Si cambiás productos en `db/init.sql`, regenerá también `public/data/productos.json` para que la demo muestre lo mismo.
 
 ---
 

@@ -7,11 +7,22 @@ $(function () {
   const guardar = () => localStorage.setItem('carritoPeluches', JSON.stringify(carrito));
   // Foto del producto: usa la imagen si existe y, si no, el emoji
   const foto = p => p.imagen ? `<img src="${encodeURI(p.imagen)}" alt="" loading="lazy">` : p.emoji;
+  // Modo demo: si no hay servidor (por ejemplo en GitHub Pages) se usa data/productos.json
+  let modoEstatico = false;
+  const vendidos = () => { try { return JSON.parse(localStorage.getItem('stockDemo') || '{}'); } catch (e) { return {}; } };
+  const catalogo = cat => $.getJSON('api/productos' + (cat ? '?categoria=' + cat : ''))
+    .catch(() => {
+      modoEstatico = true;
+      return $.getJSON('data/productos.json').then(lista => {
+        const v = vendidos();
+        return lista.filter(p => !cat || p.categoria === cat)
+          .map(p => ({ ...p, stock: Math.max(0, p.stock - (v[p.id] || 0)) }));
+      });
+    });
   const buscar = id => productos.find(p => p.id === id);
 
   function cargar(cat) {
-    const url = '/api/productos' + (cat ? '?categoria=' + cat : '');
-    $.getJSON(url)
+    catalogo(cat)
       .done(data => {
         // el catálogo completo sirve para armar el carrito
         if (!cat) productos = data; else data.forEach(p => { if (!buscar(p.id)) productos.push(p); });
@@ -114,6 +125,21 @@ $(function () {
   }
   const msg = (t, color) => $('#mensaje').css('color', color).text(t);
 
+  // Pedido real (servidor) o simulado en el navegador (modo demo)
+  function pedidoDemo(p) {
+    const d = $.Deferred(), num = p.tarjeta.numero, v = vendidos();
+    if (num.endsWith('0002')) return d.reject({ responseJSON: { error: 'Pago rechazado por el banco (tarjeta de prueba 0002)' } }).promise();
+    for (const it of p.items) {
+      const pr = buscar(it.id);
+      if (!pr || pr.stock < it.cantidad) return d.reject({ responseJSON: { error: 'Sin stock suficiente' } }).promise();
+    }
+    p.items.forEach(it => { v[it.id] = (v[it.id] || 0) + it.cantidad; });
+    try { localStorage.setItem('stockDemo', JSON.stringify(v)); } catch (e) {}
+    return d.resolve({ pedido: Math.floor(Math.random() * 9000) + 1000, marca: marcaDe(num), ultimos4: num.slice(-4) }).promise();
+  }
+  const pedir = p => modoEstatico ? pedidoDemo(p) : $.ajax({
+    url: 'api/pedidos', method: 'POST', contentType: 'application/json', data: JSON.stringify(p) });
+
   $('#formPago').on('submit', function (e) {
     e.preventDefault();
     $('#formPago input').removeClass('mal');
@@ -126,12 +152,9 @@ $(function () {
 
     $('#comprar').prop('disabled', true);
     msg('Procesando el pago…', '#ffd84d');
-    $.ajax({
-      url: '/api/pedidos', method: 'POST', contentType: 'application/json',
-      data: JSON.stringify({ cliente, tarjeta: { numero: num, vence, cvv },
-        items: carrito.map(c => ({ id: c.id, cantidad: c.cantidad })) })
-    }).done(r => {
-      msg('¡Pago aprobado! Pedido #' + r.pedido + ' · ' + r.marca + ' terminada en ' + r.ultimos4 + '. Pusheen está feliz.', '#6fcf4f');
+    pedir({ cliente, tarjeta: { numero: num, vence, cvv },
+      items: carrito.map(c => ({ id: c.id, cantidad: c.cantidad })) }).done(r => {
+      msg('¡Pago aprobado! Pedido #' + r.pedido + ' · ' + r.marca + ' terminada en ' + r.ultimos4 + '. Pusheen está feliz.' + (modoEstatico ? ' (Modo demo: no se guardó ningún pedido.)' : ''), '#6fcf4f');
       carrito = []; guardar(); dibujarCarrito(); this.reset(); $('#marca').text('');
       cargar($('#filtros .activo').data('cat'));
     }).fail(x => msg((x.responseJSON && x.responseJSON.error) || 'Error al pagar', '#ff8fb1'))
@@ -139,8 +162,8 @@ $(function () {
     $('#cvv').val(''); // el código nunca queda en pantalla
   });
 
-  $.getJSON('/api/estado').done(e => {
+  $.getJSON('api/estado').done(e => {
     if (!e.baseDeDatos) $('#aviso').prop('hidden', false).text('Modo sin base de datos: levantá Docker para ver todo el catálogo.');
-  });
+  }).fail(() => $('#aviso').prop('hidden', false).text('Modo demo: esta versión online no tiene servidor ni base de datos, así que los pedidos no se guardan.'));
   cargar('');
 });
