@@ -1,0 +1,14 @@
+{
+  "name": "peluchitos-arcade",
+  "version": "1.0.0",
+  "description": "Tienda online de peluches retro (Pusheen, Hello Kitty, Plants vs Zombies, perros, gatos, frazadas)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  }
+}

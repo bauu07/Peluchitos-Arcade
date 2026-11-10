@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peluchitos Arcade · peluches de juegos y gatitos</title>
+  <link rel="icon" href="img/gatito.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="logo" href="#">
+      <img src="img/gatito.svg" alt="" width="44">
+      <span>Peluchitos Arcade</span>
+    </a>
+    <button class="btn" id="abrirCarrito" aria-label="Abrir carrito">
+      <img src="img/gatito.svg" alt="" width="28">
+      Carrito <b id="contador">0</b>
+    </button>
+  </header>
+
+  <section class="hero">
+    <p class="insert">INSERT COIN</p>
+    <h1>Peluches para jugar,<br>abrazar y coleccionar</h1>
+    <p class="sub">Pusheen, Hello Kitty, plantas y zombis, perros, gatos y frazadas.</p>
+    <a href="#catalogo" class="btn grande"><img src="img/gatito.svg" alt="" width="34"> Ver peluches</a>
+  </section>
+
+  <main id="catalogo">
+    <nav class="filtros" id="filtros" aria-label="Categorías">
+      <button class="btn chico activo" data-cat="">Todos</button>
+      <button class="btn chico" data-cat="pusheen">Pusheen</button>
+      <button class="btn chico" data-cat="kitty">Hello Kitty</button>
+      <button class="btn chico" data-cat="pvz">Plantas vs Zombis</button>
+      <button class="btn chico" data-cat="perros">Perros</button>
+      <button class="btn chico" data-cat="gatos">Gatos</button>
+      <button class="btn chico" data-cat="frazadas">Frazadas</button>
+    </nav>
+    <p id="aviso" class="aviso" hidden></p>
+    <div id="grilla" class="grilla" aria-live="polite"></div>
+  </main>
+
+  <footer class="pie">Hecho en la escuela con Node, Express, jQuery y MySQL · Pusheen te vigila 🐱</footer>
+
+  <aside class="carrito" id="carrito" aria-hidden="true">
+    <div class="carrito-cab">
+      <h2>Tu carrito</h2>
+      <button class="btn chico" id="cerrarCarrito">Cerrar</button>
+    </div>
+    <ul id="items" class="items"></ul>
+    <p class="total">Total: <b id="total">$0</b></p>
+    <input id="cliente" type="text" placeholder="Tu nombre" maxlength="80">
+    <button class="btn grande" id="comprar"><img src="img/gatito.svg" alt="" width="34"> Confirmar compra</button>
+    <button class="btn chico vaciar" id="vaciar">Vaciar carrito</button>
+    <p id="mensaje" class="mensaje" role="status"></p>
+  </aside>
+  <div class="velo" id="velo" hidden></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="js/tienda.js"></script>
+</body>
+</html>
